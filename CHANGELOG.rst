@@ -1,7 +1,8 @@
 3.0.6.dev0 (unreleased)
 =======================
 
-*
+* ``_pytest.compat.is_generator`` now correctly detects generator functions
+  (`#2129`_). Thanks `@malinoff`_.
 
 *
 
@@ -11,6 +12,9 @@
 
 *
 
+.. _@malinoff: https://github.com/malinoff
+
+.. _#2129: https://github.com/pytest-dev/pytest/issues/2129
 
 
 3.0.5 (2016-12-05)
