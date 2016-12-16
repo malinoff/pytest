@@ -226,6 +226,10 @@ def pytest_runtest_logreport(report):
 def pytest_fixture_setup(fixturedef, request):
     """ performs fixture setup execution. """
 
+@hookspec(firstresult=True)
+def pytest_fixture_finalize(fixturedef, finalizer):
+    """ performs fixture finalization. """
+
 def pytest_fixture_post_finalizer(fixturedef):
     """ called after fixture teardown, but before the cache is cleared so
     the fixture result cache ``fixturedef.cached_result`` can

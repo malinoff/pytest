@@ -749,12 +749,12 @@ class FixtureDef:
         self._finalizer.append(finalizer)
 
     def finish(self):
+        hook = self._fixturemanager.session.config.hook
         try:
             while self._finalizer:
                 func = self._finalizer.pop()
-                func()
+                hook.pytest_fixture_finalize(fixturedef=self, finalizer=func)
         finally:
-            hook = self._fixturemanager.session.config.hook
             hook.pytest_fixture_post_finalizer(fixturedef=self)
             # even if finalization fails, we invalidate
             # the cached fixture value
@@ -820,6 +820,9 @@ def pytest_fixture_setup(fixturedef, request):
         raise
     fixturedef.cached_result = (result, my_cache_key, None)
     return result
+
+def pytest_fixture_finalize(fixturedef, finalizer):
+    return finalizer()
 
 
 class FixtureFunctionMarker:
